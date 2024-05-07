@@ -1,26 +1,33 @@
-import { Injectable } from '@nestjs/common';
+import { Delete, Get, Injectable, NotFoundException, Param, Post, Put } from '@nestjs/common';
 import { CreateUsuarioDto } from './dto/create-usuario.dto';
 import { UpdateUsuarioDto } from './dto/update-usuario.dto';
 
 @Injectable()
 export class UsuariosService {
+
+  @Post()
   create(createUsuarioDto: CreateUsuarioDto) {
     return 'This action adds a new usuario';
   }
 
+
+  @Get()
   findAll() {
     return `This action returns all usuarios`;
   }
 
-  findOne(id: number) {
+  @Get(':id')
+  findOne(@Param(':id') id: number) {
     return `This action returns a #${id} usuario`;
   }
 
-  update(id: number, updateUsuarioDto: UpdateUsuarioDto) {
+  @Put(':id')
+  async update(@Param('id') id: number, updateUsuarioDto: UpdateUsuarioDto) {
     return `This action updates a #${id} usuario`;
   }
 
-  remove(id: number) {
+  @Delete(':id')
+  remove(@Param(':id') id: number) {
     return `This action removes a #${id} usuario`;
   }
 }
