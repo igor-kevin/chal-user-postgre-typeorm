@@ -16,18 +16,18 @@ export class UsuariosService {
     return `This action returns all usuarios`;
   }
 
-  @Get(':id')
-  findOne(@Param(':id') id: number) {
+  @Get('id')
+  findOne(@Param('id') id: number) {
     return `This action returns a #${id} usuario`;
   }
 
-  @Put(':id')
+  @Put('id')
   async update(@Param('id') id: number, updateUsuarioDto: UpdateUsuarioDto) {
     return `This action updates a #${id} usuario`;
   }
 
-  @Delete(':id')
-  remove(@Param(':id') id: number) {
+  @Delete('id')
+  remove(@Param('id') id: number) {
     return `This action removes a #${id} usuario`;
   }
 }
