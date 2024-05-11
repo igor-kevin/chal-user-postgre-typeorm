@@ -2,7 +2,7 @@ import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
 export class Usuario {
-    @PrimaryGeneratedColumn('increment')
+    @PrimaryGeneratedColumn()
     id: number;
 
     @Column({ type: "varchar", length: 120 })
@@ -17,7 +17,7 @@ export class Usuario {
     @Column({ type: 'varchar', length: 2 })
     nacionalidade: string;
 
-    @Column()
+    @Column({ type: 'varchar', length: 50 })
     profissao: string;
 
 
