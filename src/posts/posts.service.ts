@@ -8,7 +8,7 @@ import { Repository } from 'typeorm';
 @Injectable()
 export class PostsService {
   constructor(
-    @InjectRepository(Post)
+    @InjectRepository(Publicacao)
     private readonly publicacao: Repository<Publicacao>,
   ) { }
 
