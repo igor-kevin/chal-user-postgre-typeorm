@@ -25,13 +25,19 @@ export class UsuariosService {
   }
 
   @Get('id')
-  findOne(@Param('id') id: number) {
-    return `This action returns a #${id} usuario`;
+  async findOne(@Param('id') id: number): Promise<Usuario | null> {
+    return await this.usuarioRepository.findOne({ where: { id } })
+
   }
 
   @Put('id')
-  async update(@Param('id') id: number, updateUsuarioDto: UpdateUsuarioDto) {
-    return `This action updates a #${id} usuario`;
+  async update(@Param('id') id: number, updateUsuarioDto: UpdateUsuarioDto): Promise<Usuario> {
+    let usuario = await this.usuarioRepository.findOne({ where: { id } })
+    if (!usuario) {
+      throw new NotFoundException('Não achou pelo ID')
+    }
+    return await this.usuarioRepository.save({ ...usuario, ...updateUsuarioDto })
+
   }
 
   @Delete('id')
