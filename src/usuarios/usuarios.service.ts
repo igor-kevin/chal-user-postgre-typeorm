@@ -1,9 +1,16 @@
-import { Delete, Get, Injectable, NotFoundException, Param, Post, Put } from '@nestjs/common';
+import { Delete, Get, Inject, Injectable, NotFoundException, Param, Post, Put } from '@nestjs/common';
 import { CreateUsuarioDto } from './dto/create-usuario.dto';
 import { UpdateUsuarioDto } from './dto/update-usuario.dto';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Usuario } from './entities/usuario.entity';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class UsuariosService {
+  constructor(
+    @InjectRepository(Usuario)
+    private readonly usuarioRepository: Repository<Usuario>
+  ) { }
 
   @Post()
   create(createUsuarioDto: CreateUsuarioDto) {

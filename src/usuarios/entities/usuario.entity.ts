@@ -11,7 +11,7 @@ export class Usuario {
     @Column({ type: "varchar", length: 90 })
     email: string;
 
-    @Column({ type: "tinyint", unsigned: true })
+    @Column({ type: "int", unsigned: true })
     idade: number;
 
     @Column({ type: 'varchar', length: 2 })
