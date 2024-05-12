@@ -2,7 +2,7 @@ import { Usuario } from "src/usuarios/entities/usuario.entity";
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
-export class Post {
+export class Publicacao {
     @PrimaryGeneratedColumn()
     id: number;
 
