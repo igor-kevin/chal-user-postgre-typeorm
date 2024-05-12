@@ -13,7 +13,7 @@ export class UsuariosService {
   ) { }
 
   @Post()
-  async create(createUsuarioDto: CreateUsuarioDto) {
+  async create(createUsuarioDto: CreateUsuarioDto): Promise<Usuario> {
     const usuario = this.usuarioRepository.create(createUsuarioDto)
     return await this.usuarioRepository.save(usuario);
   }
