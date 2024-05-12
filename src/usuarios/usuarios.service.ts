@@ -13,8 +13,9 @@ export class UsuariosService {
   ) { }
 
   @Post()
-  create(createUsuarioDto: CreateUsuarioDto) {
-    return 'This action adds a new usuario';
+  async create(createUsuarioDto: CreateUsuarioDto) {
+    const usuario = this.usuarioRepository.create(createUsuarioDto)
+    return await this.usuarioRepository.save(usuario);
   }
 
 
