@@ -20,8 +20,8 @@ export class UsuariosService {
 
 
   @Get()
-  findAll() {
-    return `This action returns all usuarios`;
+  async findAll(): Promise<Usuario[]> {
+    return this.usuarioRepository.find();
   }
 
   @Get('id')
