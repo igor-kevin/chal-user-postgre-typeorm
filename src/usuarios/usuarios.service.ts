@@ -41,7 +41,8 @@ export class UsuariosService {
   }
 
   @Delete('id')
-  remove(@Param('id') id: number) {
-    return `This action removes a #${id} usuario`;
+  async remove(@Param('id') id: number): Promise<void> {
+    const usuario = await this.usuarioRepository.findOne({ where: { id } })
+    await this.usuarioRepository.delete(usuario)
   }
 }
