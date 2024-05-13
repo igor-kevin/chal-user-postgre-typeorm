@@ -1,4 +1,4 @@
-import { Injectable, Post } from '@nestjs/common';
+import { Injectable, NotFoundException, Post } from '@nestjs/common';
 import { CreatePostDto } from './dto/create-post.dto';
 import { UpdatePostDto } from './dto/update-post.dto';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -9,26 +9,38 @@ import { Repository } from 'typeorm';
 export class PostsService {
   constructor(
     @InjectRepository(Publicacao)
-    private readonly publicacao: Repository<Publicacao>,
+    private readonly publicacaoRepository: Repository<Publicacao>,
   ) { }
 
-  create(createPostDto: CreatePostDto) {
-    return 'This action adds a new post';
+  async create(createPostDto: CreatePostDto): Promise<Publicacao> {
+    return this.publicacaoRepository.save(createPostDto);
   }
 
-  findAll() {
-    return `This action returns all posts`;
+  async findAll(): Promise<Publicacao[]> {
+    return await this.publicacaoRepository.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} post`;
+  async findOne(id: number): Promise<Publicacao> {
+    const publicacao = await this.publicacaoRepository.findOne({ where: { id } });
+    if (!publicacao) {
+      throw new NotFoundException('Não achou a publicação');
+    }
+    return publicacao;
   }
 
-  update(id: number, updatePostDto: UpdatePostDto) {
-    return `This action updates a #${id} post`;
+  async update(id: number, updatePostDto: UpdatePostDto): Promise<Publicacao> {
+    const publicacao = await this.publicacaoRepository.findOne({ where: { id } });
+    if (!publicacao) {
+      throw new NotFoundException('Não achou a publicação');
+    }
+    return this.publicacaoRepository.create({ ...publicacao, ...updatePostDto })
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} post`;
+  async remove(id: number): Promise<void> {
+    const publicacao = await this.publicacaoRepository.findOne({ where: { id } });
+    if (!publicacao) {
+      throw new NotFoundException('Não achou a publicação');
+    }
+    await this.publicacaoRepository.delete(publicacao)
   }
 }
